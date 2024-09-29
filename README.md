@@ -1,1 +1,12 @@
-https://github.com/bufbuild/protovalidate
+Further reading
+* https://github.com/bufbuild/protovalidate
+* https://github.com/telus-oss/cel-net
+* https://codethecoffee.github.io/proto-cheatsheet/
+* https://mariocarrion.com/2023/11/13/learning-grpc-protobuf-validation.html
+* https://buf.build/docs/tutorials/getting-started-with-buf-cli#implement-the-server
+* https://github.com/MarioCarrion/grpc-microservice-example/tree/main
+* https://direnv.net/
+* https://mariocarrion.com/2021/10/15/learning-golang-versioning-tools-as-dependencies.html
+* https://github.com/werbot/werbot/blob/9176a461b96ca0c69b24ad2ad9d37b792252fea3/scripts/tools#L66
+* https://github.com/JY8752/zenn_article/blob/9dd0925d7d9054ca82abe3be35a8bfd6969b1b04/books/84cffcdb89d109/3.md?plain=1#L37
+* https://github.com/JY8752/protovalidate-demo

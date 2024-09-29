@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+message FooRequest {
+ string bar = 1;
+ int32 baz = 2;
+}
+
