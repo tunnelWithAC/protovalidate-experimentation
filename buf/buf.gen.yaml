@@ -1,0 +1,29 @@
+version: v1
+managed:
+  enabled: true
+  # override:
+  #   - file_option: go_package_prefix
+  #     value: github.com/bufbuild/buf-tour/gen
+  # override:
+  #   - file_option: go_package_prefix
+  #     value: github.com/tunnelWithAC/protovalidate-poc
+  # go_package_prefix:
+  #   default: .
+  #   except:
+  #     - buf.build/bufbuild/protovalidate
+plugins:
+  - remote: buf.build/protocolbuffers/go
+    out: gen
+    opt: paths=source_relative
+  - remote: buf.build/connectrpc/go
+    out: gen
+    opt: paths=source_relative
+# plugins:
+  # - name: go # Synonym with: protoc-gen-<name>
+  #   out: gen/go
+  #   opt: paths=source_relative
+  # - name: go-grpc
+  #   out: gen/go
+  #   opt: paths=source_relative
+# inputs:
+#   - directory: proto
