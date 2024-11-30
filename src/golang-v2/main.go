@@ -3,11 +3,13 @@ package main
 import (
 	"fmt"
 	"net/http"
-	transaction "protovalidate-demo/gen/ecommerence/transaction/v1"
+	transaction "protovalidate-demo/gen/ecommerce/transaction/v1"
 	hellov1 "protovalidate-demo/gen/example/hello/v1"
+	"time"
 
 	"github.com/bufbuild/protovalidate-go"
 	"google.golang.org/protobuf/reflect/protoreflect"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
@@ -36,11 +38,11 @@ func validateHandler(w http.ResponseWriter, r *http.Request) {
 	var errorList []error
 
 	if err = validate(v, &transaction.Transaction{
-		id:            1000,
-		purchase_date: "2021-09-01",
-		delivery_date: "2021-09-10",
-		price:         "$5.99",
-		email:         "bob@doe.mail",
+		Id:           1000,
+		Price:        "$100.00",
+		PurchaseDate: timestamppb.New(time.Now().Add(-24 * time.Hour)), // 24 hours ago
+		DeliveryDate: timestamppb.New(time.Now()),
+		Email:        "bob@doe.mail",
 	}); err != nil {
 		errorList = append(errorList, err)
 	}
