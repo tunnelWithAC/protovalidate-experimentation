@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package my.package;
+package ecommerce;
 
 import "google/protobuf/timestamp.proto";
 import "buf/validate/validate.proto";
@@ -16,16 +16,11 @@ message Transaction {
     expression: "(this.startswith('$') or this.startswith('£')) and float(this[1:]) > 0"
   }];
 
+  string email = 5 [ (buf.validate.field).string.email = true ];
+
   option (buf.validate.message).cel = {
     id: "transaction.delivery_date",
     message: "delivery date must be after purchase date",
     expression: "this.delivery_date > this.purchase_date"
   };
 }
-
-message Name { string name = 1 [ (buf.validate.field).string.min_len = 5 ]; }
-
-// string uuid_value = 23 [ (buf.validate.field).string.uuid = true ];
-// string email_value = 15 [ (buf.validate.field).string.email = true ];
-// string contains_value = 11 [ (buf.validate.field).string.contains = "banana" ];
-// string len_value = 2 [ (buf.validate.field).string.len = 5 ];

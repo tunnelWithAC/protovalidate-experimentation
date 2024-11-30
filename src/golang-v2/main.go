@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	transaction "protovalidate-demo/gen/ecommerence/transaction/v1"
 	hellov1 "protovalidate-demo/gen/example/hello/v1"
 
 	"github.com/bufbuild/protovalidate-go"
@@ -34,6 +35,16 @@ func validateHandler(w http.ResponseWriter, r *http.Request) {
 
 	var errorList []error
 
+	if err = validate(v, &transaction.Transaction{
+		id:            1000,
+		purchase_date: "2021-09-01",
+		delivery_date: "2021-09-10",
+		price:         "$5.99",
+		email:         "bob@doe.mail",
+	}); err != nil {
+		errorList = append(errorList, err)
+	}
+
 	if err = validate(v, &hellov1.Name{
 		Name: name,
 	}); err != nil {
@@ -44,7 +55,6 @@ func validateHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/hello", helloHandler)
 	http.HandleFunc("/validate", validateHandler)
 	fmt.Println("Server is running on port 8080...")
 	http.ListenAndServe(":8080", nil)
