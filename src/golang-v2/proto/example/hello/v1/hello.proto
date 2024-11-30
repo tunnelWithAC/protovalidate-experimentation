@@ -22,3 +22,5 @@ message Transaction {
     expression: "this.delivery_date > this.purchase_date"
   };
 }
+
+message Name { string name = 1 [ (buf.validate.field).string.min_len = 5 ]; }
