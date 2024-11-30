@@ -10,6 +10,11 @@ import (
 	"github.com/bufbuild/protovalidate-go"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/types/known/timestamppb"
+
+	"encoding/json"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
@@ -56,8 +61,40 @@ func validateHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Errors:  %s", errorList)
 }
 
+func createTransaction(w http.ResponseWriter, r *http.Request) {
+	var transaction Transaction
+	err := json.NewDecoder(r.Body).Decode(&transaction)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	// Validate the data (basic validation example)
+	if transaction.Id < 1000 {
+		http.Error(w, "Id must be greater than or equal to 1000", http.StatusBadRequest)
+		return
+	}
+	if transaction.Price == "" {
+		http.Error(w, "Price is required", http.StatusBadRequest)
+		return
+	}
+	if transaction.Email == "" {
+		http.Error(w, "Email is required", http.StatusBadRequest)
+		return
+	}
+
+	// Respond with the created transaction
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(transaction)
+}
+
 func main() {
+	r := chi.NewRouter()
+	r.Use(middleware.Logger)
+
 	http.HandleFunc("/validate", validateHandler)
 	fmt.Println("Server is running on port 8080...")
-	http.ListenAndServe(":8080", nil)
+	r.Post("/transactions", createTransaction)
+
+	http.ListenAndServe(":8080", r)
 }
