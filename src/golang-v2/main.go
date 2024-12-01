@@ -102,12 +102,25 @@ func transactionHandler(w http.ResponseWriter, r *http.Request) {
 	if err = validate(v, &transaction.Transaction{
 		Id:           transactionRequest.Id,
 		Price:        transactionRequest.Price,
-		PurchaseDate: (*timestamppb.Timestamp)(&transactionRequest.PurchaseDate), // Convert to *timestamppb.Timestamp
-		DeliveryDate: (*timestamppb.Timestamp)(&transactionRequest.DeliveryDate), // Convert to *timestamppb.Timestamp
+		PurchaseDate: (*timestamppb.Timestamp)(&transactionRequest.PurchaseDate),
+		DeliveryDate: (*timestamppb.Timestamp)(&transactionRequest.DeliveryDate),
 		Email:        transactionRequest.Email,
 	}); err != nil {
 		errorList = append(errorList, err)
-		http.Error(w, "Request failed validation", http.StatusBadRequest)
+		// Convert []error to []string
+		var errorStrings []string
+		for _, e := range errorList {
+			errorStrings = append(errorStrings, e.Error())
+		}
+
+		// Marshal []string to JSON
+		errorJSON, err := json.Marshal(errorStrings)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		http.Error(w, string(errorJSON), http.StatusBadRequest)
 		return
 	}
 
