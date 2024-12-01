@@ -25,12 +25,36 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello %s", name)
 }
 
+type Timestamp timestamppb.Timestamp
+
+func (t *Timestamp) UnmarshalJSON(data []byte) error {
+	var str string
+	if err := json.Unmarshal(data, &str); err != nil {
+		return err
+	}
+	parsedTime, err := time.Parse(time.RFC3339, str)
+	if err != nil {
+		return err
+	}
+	*t = Timestamp(*timestamppb.New(parsedTime))
+	return nil
+}
+
+type Transaction struct {
+	Id           uint64    `json:"id"`
+	Price        string    `json:"price"`
+	PurchaseDate Timestamp `json:"purchase_date"`
+	DeliveryDate Timestamp `json:"delivery_date"`
+	Email        string    `json:"email"`
+}
+
 func validate(v *protovalidate.Validator, msg protoreflect.ProtoMessage) error {
 	if err := v.Validate(msg); err != nil {
 		return fmt.Errorf("validation failed: %w", err)
 	}
 	return nil
 }
+
 func validateHandler(w http.ResponseWriter, r *http.Request) {
 	v, err := protovalidate.New()
 	if err != nil {
@@ -61,31 +85,35 @@ func validateHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Errors:  %s", errorList)
 }
 
-func createTransaction(w http.ResponseWriter, r *http.Request) {
-	var transaction Transaction
-	err := json.NewDecoder(r.Body).Decode(&transaction)
+func transactionHandler(w http.ResponseWriter, r *http.Request) {
+	var transactionRequest Transaction
+	err := json.NewDecoder(r.Body).Decode(&transactionRequest)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	// Validate the data (basic validation example)
-	if transaction.Id < 1000 {
-		http.Error(w, "Id must be greater than or equal to 1000", http.StatusBadRequest)
-		return
+	var errorList []error
+	v, err := protovalidate.New()
+	if err != nil {
+		panic(err)
 	}
-	if transaction.Price == "" {
-		http.Error(w, "Price is required", http.StatusBadRequest)
-		return
-	}
-	if transaction.Email == "" {
-		http.Error(w, "Email is required", http.StatusBadRequest)
+
+	if err = validate(v, &transaction.Transaction{
+		Id:           transactionRequest.Id,
+		Price:        transactionRequest.Price,
+		PurchaseDate: (*timestamppb.Timestamp)(&transactionRequest.PurchaseDate), // Convert to *timestamppb.Timestamp
+		DeliveryDate: (*timestamppb.Timestamp)(&transactionRequest.DeliveryDate), // Convert to *timestamppb.Timestamp
+		Email:        transactionRequest.Email,
+	}); err != nil {
+		errorList = append(errorList, err)
+		http.Error(w, "Request failed validation", http.StatusBadRequest)
 		return
 	}
 
 	// Respond with the created transaction
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(transaction)
+	json.NewEncoder(w).Encode(transactionRequest)
 }
 
 func main() {
@@ -94,7 +122,7 @@ func main() {
 
 	http.HandleFunc("/validate", validateHandler)
 	fmt.Println("Server is running on port 8080...")
-	r.Post("/transactions", createTransaction)
+	r.Post("/transactions", transactionHandler)
 
 	http.ListenAndServe(":8080", r)
 }
