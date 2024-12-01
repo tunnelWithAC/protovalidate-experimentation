@@ -2,11 +2,10 @@ name: Go Unit Tests
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    paths: [
+      .github/workflows/golang-unit-test.yaml,
+      src/golang-v2/**/*
+    ]
 
 jobs:
   test:
@@ -31,5 +30,10 @@ jobs:
           buf dep update
         working-directory: src/golang-v2
 
-      # - name: Run unit tests
-      #   run: go test ./...
+      - name: Generate GoLang code from proto
+        run: |
+          buf generate
+        working-directory: src/golang-v2
+
+      - name: Run unit tests
+        run: go test .
