@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	transaction "protovalidate-demo/gen/ecommerce/transaction/v1"
-	hellov1 "protovalidate-demo/gen/example/hello/v1"
+	nameV1 "protovalidate-demo/gen/example/name/v1"
 	"time"
 
 	"github.com/bufbuild/protovalidate-go"
@@ -17,8 +17,18 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 )
 
+// models
 type Timestamp timestamppb.Timestamp
 
+type Transaction struct {
+	Id           uint64    `json:"id"`
+	Price        string    `json:"price"`
+	PurchaseDate Timestamp `json:"purchase_date"`
+	DeliveryDate Timestamp `json:"delivery_date"`
+	Email        string    `json:"email"`
+}
+
+// validators
 func (t *Timestamp) UnmarshalJSON(data []byte) error {
 	var str string
 	if err := json.Unmarshal(data, &str); err != nil {
@@ -32,14 +42,6 @@ func (t *Timestamp) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-type Transaction struct {
-	Id           uint64    `json:"id"`
-	Price        string    `json:"price"`
-	PurchaseDate Timestamp `json:"purchase_date"`
-	DeliveryDate Timestamp `json:"delivery_date"`
-	Email        string    `json:"email"`
-}
-
 func validate(v *protovalidate.Validator, msg protoreflect.ProtoMessage) error {
 	if err := v.Validate(msg); err != nil {
 		return fmt.Errorf("validation failed: %w", err)
@@ -47,6 +49,7 @@ func validate(v *protovalidate.Validator, msg protoreflect.ProtoMessage) error {
 	return nil
 }
 
+// handlers
 func nameHandler(w http.ResponseWriter, r *http.Request) {
 	v, err := protovalidate.New()
 	if err != nil {
@@ -54,11 +57,10 @@ func nameHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	name := r.URL.Query().Get("value")
-	fmt.Println("Name: ", name)
 
 	var errorList []error
 
-	if err = validate(v, &hellov1.Name{
+	if err = validate(v, &nameV1.Name{
 		Name: name,
 	}); err != nil {
 		errorList = append(errorList, err)
