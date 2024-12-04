@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-import "buf/validate/validate.proto";
-
 option csharp_namespace = "ProtoValidate.Messages";
 
 message User {
