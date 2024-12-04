@@ -1,0 +1,41 @@
+name: Go Unit Tests
+
+on:
+  push:
+    paths: [
+      .github/workflows/golang-unit-test.yaml,
+      src/golang-v2/**/*
+    ]
+
+jobs:
+  go-unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.22'
+
+      - name: Install dependencies
+        run: go mod tidy
+        working-directory: src/golang-v2
+
+      - name: Install buf CLI
+        run: |
+          curl -sSL "https://github.com/bufbuild/buf/releases/download/v1.42.0/buf-Linux-x86_64" -o /usr/local/bin/buf
+          chmod +x /usr/local/bin/buf
+          buf dep update
+        working-directory: src/golang-v2
+
+      - name: Generate GoLang code from proto
+        run: |
+          buf generate
+        working-directory: src/golang-v2
+
+      - name: Run unit tests
+        run: go test .
+        working-directory: src/golang-v2
