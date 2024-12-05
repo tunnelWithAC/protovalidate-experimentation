@@ -47,7 +47,7 @@ jobs:
       - name: Compile Protobuf files
         run: |
           protoc \
-            -I ./vendor/proto \
+            -I ./vendor/proto/protovalidate \
             --csharp_out=../../Models \
             --proto_path=. \
             ./user.proto
