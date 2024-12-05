@@ -40,12 +40,14 @@ jobs:
           path: src/dotnet/ConsoleValidator/proto/vendor
 
       - name: ls directory
-        run: ls src/dotnet/ConsoleValidator/proto/vendor
+        run: |
+          ls src/dotnet/ConsoleValidator/proto/vendor
+          ls src/dotnet/ConsoleValidator/proto/vendor/proto
 
       - name: Compile Protobuf files
         run: |
           protoc \
-            -I ./vendor/proto/protovalidate \
+            -I ./vendor/proto \
             --csharp_out=../../Models \
             --proto_path=. \
             ./user.proto
