@@ -34,7 +34,7 @@ jobs:
       - name: Clone Protovalidate repo
         uses: actions/checkout@v4
         with:
-          repository: telus-oss/protovalidate-net
+          repository: bufbuild/protovalidate
           path: src/dotnet/ConsoleValidator/proto/vendor 
 
       - name: ls directory
