@@ -2,10 +2,11 @@ name: Dotnet Unit Tests
 
 on:
   push:
-    paths: [
-      .github/workflows/dotnet-unit-test.yaml,
-      src/dotnet/ConsoleValidator
-    ]
+    paths:
+#  [
+    #   .github/workflows/dotnet-unit-test.yaml,
+    #   src/dotnet/ConsoleValidator
+    # ]
 
 jobs:
   dotnet-unit-tests:
