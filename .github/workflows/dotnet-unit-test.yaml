@@ -25,13 +25,13 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y protobuf-compiler
 
-      - name: Install protoc-gen-csharp plugin
-        run: |
-          dotnet tool install Google.Protobuf.Tools
-          # dotnet tool install --global Google.Protobuf.Tools
+      # - name: Install protoc-gen-csharp plugin
+      #   run: |
+      #     dotnet tool install Google.Protobuf.Tools
+      #     # dotnet tool install --global Google.Protobuf.Tools
 
-          # export PATH="$PATH:/home/runner/.dotnet/tools"
-        working-directory: src/dotnet/ConsoleValidator/proto
+      #     # export PATH="$PATH:/home/runner/.dotnet/tools"
+      #   working-directory: src/dotnet/ConsoleValidator/proto
 
       - name: Clone Protovalidate repo
         uses: actions/checkout@v4
