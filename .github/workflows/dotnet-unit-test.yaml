@@ -20,6 +20,32 @@ jobs:
         with:
           dotnet-version: '8.x' # Adjust the .NET version as needed
 
+      - name: Install protoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler
+
+      - name: Install protoc-gen-csharp plugin
+        run: |
+          dotnet tool install --global Google.Protobuf.Tools
+          export PATH="$PATH:/home/runner/.dotnet/tools"
+        working-directory: src/dotnet/ConsoleValidator/proto
+
+      - name: Clone Protovalidate repo
+        uses: actions/checkout@v4
+        with:
+          repository: telus-oss/protovalidate-net
+          path: src/dotnet/ConsoleValidator/proto/vendor 
+
+      - name: Compile Protobuf files
+        run: |
+          protoc \
+            -I ./vendor/protovalidate/proto/protovalidate \
+            --csharp_out=../../Models \
+            --proto_path=. \
+            ./user.proto
+        working-directory: src/dotnet/ConsoleValidator/proto
+
       - name: Install dependencies
         run: dotnet restore
         working-directory: src/dotnet/ConsoleValidator
