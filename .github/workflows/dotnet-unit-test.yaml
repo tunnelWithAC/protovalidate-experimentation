@@ -48,7 +48,7 @@ jobs:
         run: |
           protoc \
             -I ./vendor/proto/protovalidate \
-            --csharp_out=../../Models \
+            --csharp_out=../Models \
             --proto_path=. \
             ./user.proto
         working-directory: src/dotnet/ConsoleValidator/proto
