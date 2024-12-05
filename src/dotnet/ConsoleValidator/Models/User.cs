@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace ProtoValidate.Messages {
+namespace ConsoleValidator.Messages {
 
   /// <summary>Holder for reflection information generated from user.proto</summary>
   public static partial class UserReflection {

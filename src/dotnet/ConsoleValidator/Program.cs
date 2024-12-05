@@ -1,4 +1,4 @@
-﻿using ProtoValidate.Messages;
+﻿using ConsoleValidator.Messages;
 using System;
 using Google.Protobuf.Reflection;
 using ProtoValidate;
