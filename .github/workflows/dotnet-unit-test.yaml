@@ -37,6 +37,9 @@ jobs:
           repository: telus-oss/protovalidate-net
           path: src/dotnet/ConsoleValidator/proto/vendor 
 
+      - name: ls directory
+        run: ls src/dotnet/ConsoleValidator/proto/vendor
+
       - name: Compile Protobuf files
         run: |
           protoc \
