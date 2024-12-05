@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "ProtoValidate.Messages";
+option csharp_namespace = "ConsoleValidator.Messages";
 
 message User {
   int32 age = 1 [(buf.validate.field).cel = {

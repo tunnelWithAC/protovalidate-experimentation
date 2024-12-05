@@ -1,0 +1,33 @@
+name: Dotnet Unit Tests
+
+on:
+  push:
+    paths: [
+      .github/workflows/dotnet-unit-test.yaml,
+      src/dotnet/ConsoleValidator
+    ]
+
+jobs:
+  go-unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '8.x' # Adjust the .NET version as needed
+
+      - name: Install dependencies
+        run: dotnet restore
+        working-directory: src/dotnet/ConsoleValidator
+
+      - name: Build
+        run: dotnet build --configuration Release
+        working-directory: src/dotnet/ConsoleValidator
+
+      - name: Run Program
+        run: dotnet run
+        working-directory: src/dotnet/ConsoleValidator
