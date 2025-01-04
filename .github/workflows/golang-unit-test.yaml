@@ -33,8 +33,7 @@ jobs:
 
       - name: Generate GoLang code from proto
         run: |
-          buf generate
-        working-directory: src/golang/lightweight-example
+          bash src/scripts/go_generate_artefacts.sh
 
       - name: Run unit tests
         run: go test .

@@ -8,7 +8,4 @@ cp -r src/proto/ src/golang/lightweight-example/proto
 cd src/golang/lightweight-example
 
 # generate artefacts
-buf generate proto
-
-# run example
-go run main.go
+buf generate
