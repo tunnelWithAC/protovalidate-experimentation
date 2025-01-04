@@ -6,3 +6,6 @@ cd src/golang/lightweight-example
 
 # generate artefacts
 buf generate
+
+echo 'Generated Go files'
+ls gen
