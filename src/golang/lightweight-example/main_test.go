@@ -16,7 +16,7 @@ func (t *Transaction) Reset()         { *t = Transaction{} }
 func (t *Transaction) String() string { return fmt.Sprintf("%v", *t) }
 func (*Transaction) ProtoMessage()    {}
 
-func TestValidate(t *testing.T) {
+func TestValidate_ReturnsNoValidationErrors(t *testing.T) {
 	// Create a Validator instance
 	v, err := protovalidate.New()
 	if err != nil {
@@ -35,6 +35,14 @@ func TestValidate(t *testing.T) {
 	// Test valid transaction
 	err = validate(v, validTransaction)
 	assert.NoError(t, err, "expected no error for valid transaction")
+}
+
+func TestValidate_ReturnsValidationErrors(t *testing.T) {
+	// Create a Validator instance
+	v, err := protovalidate.New()
+	if err != nil {
+		t.Fatalf("failed to create validator: %v", err)
+	}
 
 	// Create an invalid Transaction message (e.g., missing required fields)
 	invalidTransaction := &transaction.Transaction{
