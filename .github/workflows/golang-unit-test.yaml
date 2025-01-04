@@ -5,7 +5,7 @@ on:
     paths: [
       .github/workflows/golang-unit-test.yaml,
       src/golang/lightweight-example/**/*,
-      src/scripts*
+      src/scripts/*
     ]
 
 jobs:
