@@ -4,7 +4,8 @@ on:
   push:
     paths: [
       .github/workflows/golang-unit-test.yaml,
-      src/golang/lightweight-example/**/*
+      src/golang/lightweight-example/**/*,
+      src/scripts*
     ]
 
 jobs:
