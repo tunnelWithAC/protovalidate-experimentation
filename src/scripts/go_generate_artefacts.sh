@@ -1,5 +1,5 @@
 # copy proto from main folder
-cp -r src/proto/* src/golang/lightweight-example/proto
+cp -r src/proto/* src/golang/lightweight-example/proto/
 
 # switch to go directory
 cd src/golang/lightweight-example
