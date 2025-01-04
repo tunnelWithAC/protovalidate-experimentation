@@ -8,11 +8,17 @@ On Mac, you just need to run `brew install buf`
 
 `buf generate proto`
 
+### Run API
+
 `go run main.go`
 
 Open your browser or use curl to test the endpoint:
 Default: http://localhost:8080/hello
 With query param: http://localhost:8080/hello?name=John
+
+### Run Tests
+
+`go test .`
 
 ----- 
 
