@@ -28,13 +28,13 @@ namespace ConsoleValidator.Messages {
             "VXNlchJTCgNhZ2UYASABKAVCRrpIQ7oBQAoIdXNlci5hZ2UaNHRoaXMgPCAx",
             "OCA/ICdVc2VyIG11c3QgYmUgYXQgbGVhc3QgMTggeWVhcnMgb2xkJzogJyci",
             "FQoGUGVyc29uEgsKA2FnZRgBIAEoBSIVCgdFeEV2ZW50EgoKAmlkGAEgASgJ",
-            "QhmqAhZQcm90b1ZhbGlkYXRlLk1lc3NhZ2VzYgZwcm90bzM="));
+            "QhyqAhlDb25zb2xlVmFsaWRhdG9yLk1lc3NhZ2VzYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Buf.Validate.ValidateReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::ProtoValidate.Messages.User), global::ProtoValidate.Messages.User.Parser, new[]{ "Age" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::ProtoValidate.Messages.Person), global::ProtoValidate.Messages.Person.Parser, new[]{ "Age" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::ProtoValidate.Messages.ExEvent), global::ProtoValidate.Messages.ExEvent.Parser, new[]{ "Id" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::ConsoleValidator.Messages.User), global::ConsoleValidator.Messages.User.Parser, new[]{ "Age" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::ConsoleValidator.Messages.Person), global::ConsoleValidator.Messages.Person.Parser, new[]{ "Age" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::ConsoleValidator.Messages.ExEvent), global::ConsoleValidator.Messages.ExEvent.Parser, new[]{ "Id" }, null, null, null, null)
           }));
     }
     #endregion
@@ -56,7 +56,7 @@ namespace ConsoleValidator.Messages {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::ProtoValidate.Messages.UserReflection.Descriptor.MessageTypes[0]; }
+      get { return global::ConsoleValidator.Messages.UserReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -246,7 +246,7 @@ namespace ConsoleValidator.Messages {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::ProtoValidate.Messages.UserReflection.Descriptor.MessageTypes[1]; }
+      get { return global::ConsoleValidator.Messages.UserReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -436,7 +436,7 @@ namespace ConsoleValidator.Messages {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::ProtoValidate.Messages.UserReflection.Descriptor.MessageTypes[2]; }
+      get { return global::ConsoleValidator.Messages.UserReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
