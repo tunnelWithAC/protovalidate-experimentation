@@ -1,15 +1,37 @@
+using ConsoleValidator.Messages;
+using ConsoleValidator.Validators;
+
 namespace DotProtoValidate.Test;
 
 public class Tests
 {
+    private ProtoValidator _validator;
+
+
     [SetUp]
     public void Setup()
     {
+         _validator = new ProtoValidator();
+
     }
 
     [Test]
-    public void Test1()
+    public void ValidateUser_ValidUser_ReturnsSuccess()
     {
-        Assert.Pass();
+        var user = new User { Age = 18 };
+
+        var result = _validator.ValidateUser(user);
+
+        Assert.IsTrue(result.IsSuccess);
+    }
+
+    [Test]
+    public void ValidateUser_InvalidUser_ReturnsError()
+    {
+        var user = new User { Age = 17 };
+
+        var result = _validator.ValidateUser(user);
+
+        Assert.IsFalse(result.IsSuccess);
     }
 }
