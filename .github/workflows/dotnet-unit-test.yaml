@@ -31,18 +31,10 @@ jobs:
           repository: bufbuild/protovalidate
           path: src/dotnet/ConsoleValidator/proto/protovalidate
 
-      # Get address just using wget?
-#      - name: Clone GoogleApi repo
-#        uses: actions/checkout@v4
-#        with:
-#          repository: googleapis/googleapis
-#          path: src/dotnet/ConsoleValidator/proto/googleapis
-
       - name: Compile Protobuf files
         run: |
           protoc \
             -I ./protovalidate/proto/protovalidate \
-#            -I=./googleapis \
             --csharp_out=../Models \
             --proto_path=. \
             ./user.proto
