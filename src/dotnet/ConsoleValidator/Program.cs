@@ -1,5 +1,5 @@
 ﻿
-using ConsoleValidator.Messages;
+using DotProtoValidate.Messages;
 using System;
 using Google.Protobuf.Reflection;
 using ProtoValidate;

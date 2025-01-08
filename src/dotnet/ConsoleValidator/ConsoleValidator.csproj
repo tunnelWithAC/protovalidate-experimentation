@@ -18,4 +18,7 @@
     <PackageReference Include="ProtoValidate" Version="0.1.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Protobuf Include="proto\user.proto" GrpcServices="Server" />
+  </ItemGroup>
 </Project>
