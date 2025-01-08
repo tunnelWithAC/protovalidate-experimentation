@@ -4,7 +4,7 @@ on:
   push:
     paths: [
       .github/workflows/dotnet-unit-test.yaml,
-      src/dotnet/ConsoleValidator
+      src/dotnet/*
     ]
 
 jobs:
@@ -25,29 +25,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y protobuf-compiler
 
-      # - name: Install protoc-gen-csharp plugin
-      #   run: |
-      #     dotnet tool install Google.Protobuf.Tools
-      #     # dotnet tool install --global Google.Protobuf.Tools
-
-      #     # export PATH="$PATH:/home/runner/.dotnet/tools"
-      #   working-directory: src/dotnet/ConsoleValidator/proto
-
       - name: Clone Protovalidate repo
         uses: actions/checkout@v4
         with:
           repository: bufbuild/protovalidate
-          path: src/dotnet/ConsoleValidator/proto/vendor
-
-      - name: ls directory
-        run: |
-          ls src/dotnet/ConsoleValidator/proto/vendor
-          ls src/dotnet/ConsoleValidator/proto/vendor/proto
+          path: src/dotnet/ConsoleValidator/proto/protovalidate
 
       - name: Compile Protobuf files
         run: |
           protoc \
-            -I ./vendor/proto/protovalidate \
+            -I ./protovalidate/proto/protovalidate \
             --csharp_out=../Models \
             --proto_path=. \
             ./user.proto
@@ -62,5 +49,5 @@ jobs:
         working-directory: src/dotnet/ConsoleValidator
 
       - name: Run Program
-        run: dotnet run
-        working-directory: src/dotnet/ConsoleValidator
+        run: dotnet test
+        working-directory: src/dotnet

@@ -1,4 +1,5 @@
-﻿using ConsoleValidator.Messages;
+﻿
+using ConsoleValidator.Messages;
 using System;
 using Google.Protobuf.Reflection;
 using ProtoValidate;
@@ -8,8 +9,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        FileDescriptor fileDescriptor = User.Descriptor.File;
-
         var validatorOptions = new ProtoValidate.ValidatorOptions() {
             // This setting is used to configure if it loads your validation descriptors upon creation of the validator.
             // True will load on creation
@@ -28,12 +27,10 @@ class Program
 
         //Instantiate the validator.  You should cache the validator for reuse.
         var validator = new ProtoValidate.Validator(validatorOptions);
+        Console.WriteLine(validator.GetType().Name);
 
         // flag to indicate if the validator should return on the first error (true) or validate all the fields and return all the errors in the message (false).
-        var failFast = true;
-
-        // define your Protobuf message that needs validation
-        // var myMessageToValidate = new MyMessageThatNeedsValidation() {...};
+        var failFast = false;
 
         var user = new User { Age = 17 };
 
