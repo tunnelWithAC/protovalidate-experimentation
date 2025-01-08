@@ -35,10 +35,9 @@ public class ProtoValidator {
 
     public Result ValidateUser(User user, bool failFast = _failFast)
     {
-        // //validate the message
+        // validate the message
         var violations = _validator.Validate(user, failFast);
 
-        // //the violations contains the validation errors.
         var hasViolations = violations.Violations.Count > 0;
         Console.WriteLine("Message has violations: {0}", hasViolations.ToString());
 
