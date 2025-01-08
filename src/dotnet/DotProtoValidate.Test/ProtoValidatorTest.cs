@@ -3,7 +3,7 @@ using ConsoleValidator.Validators;
 
 namespace DotProtoValidate.Test;
 
-public class Tests
+public class ProtoValidatorTests
 {
     private ProtoValidator _validator;
 
