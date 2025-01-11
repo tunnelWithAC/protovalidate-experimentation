@@ -1,5 +1,5 @@
 using FluentResults;
-using ConsoleValidator.Messages;
+using DotProtoValidate.Messages;
 using Google.Protobuf.Reflection;
 using ProtoValidate;
 

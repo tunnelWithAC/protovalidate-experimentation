@@ -1,4 +1,4 @@
-using ConsoleValidator.Messages;
+using DotProtoValidate.Messages;
 using ConsoleValidator.Validators;
 
 namespace DotProtoValidate.Test;
